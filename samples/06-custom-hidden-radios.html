@@ -1,0 +1,9 @@
+<!doctype html><html><head><title>Hidden real radios + styled labels</title>
+<style>.pill input{position:absolute;opacity:0;width:0;height:0} .pill label{border:1px solid #888;padding:4px 10px;border-radius:12px;cursor:pointer} input:checked+label{background:#cde}</style></head><body><form>
+<div><label for="aa">First Name</label><input id="aa" type="text"></div>
+<div><label for="bb">Last Name</label><input id="bb" type="text"></div>
+<div><b>Gender</b><div class="pill">
+  <input type="radio" id="p1" name="pp"><label for="p1">Male</label>
+  <input type="radio" id="p2" name="pp"><label for="p2">Female</label></div></div>
+<div><label for="st">State</label><select id="st"><option value="">Select State</option><option>Maharashtra</option><option>Karnataka</option><option>Goa</option></select></div>
+</form></body></html>
