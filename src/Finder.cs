@@ -42,7 +42,8 @@ public class Finder
             try
             {
                 Enter(f);
-                var json = (string)((IJavaScriptExecutor)d).ExecuteScript(scanJs, kind);
+                var json = ((IJavaScriptExecutor)d).ExecuteScript(scanJs, kind) as string;
+                if (string.IsNullOrWhiteSpace(json)) continue;
                 var els = JsonSerializer.Deserialize<List<RawEl>>(json) ?? new();
                 scans.Add(new Scan(f, els));
             }

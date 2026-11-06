@@ -7,6 +7,7 @@ Fields are found by **what they mean** (label text, `aria-label`, placeholder, n
 ## Setup
 
 Requirements: **.NET 8 SDK** and **Google Chrome** (Selenium Manager downloads the matching driver automatically).
+If Chrome is installed in a non-standard location, set `CHROME_BIN` to its executable path.
 
 ```bash
 git clone <this repo>
@@ -23,6 +24,9 @@ dotnet run --project src
 # any URL (the URL is fully configurable) - CLI flag or env var
 dotnet run --project src -- --url "https://example.com/modified-form.html"
 FORM_URL="https://example.com/modified-form.html" dotnet run --project src
+
+# non-standard Chrome/Chromium location
+CHROME_BIN="/path/to/chrome" dotnet run --project src -- --headless
 
 # local file, headless, custom values, screenshot
 dotnet run --project src -- --url "file:///abs/path/page.html" --headless \

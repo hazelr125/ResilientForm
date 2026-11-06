@@ -9,11 +9,34 @@ catch (ArgumentException ex) { Console.Error.WriteLine(ex.Message); Config.Print
 if (cfg.Help) { Config.PrintHelp(); return 0; }
 
 var opts = new ChromeOptions();
+var browserBinary = Environment.GetEnvironmentVariable("CHROME_BIN");
+if (!string.IsNullOrWhiteSpace(browserBinary)) opts.BinaryLocation = browserBinary;
 if (cfg.Headless) opts.AddArgument("--headless=new");
 opts.AddArgument("--window-size=1400,1000");
+opts.AddArgument("--no-sandbox");
+opts.AddArgument("--disable-dev-shm-usage");
 opts.AddArgument("--allow-file-access-from-files");   // lets file:// sample pages work
 
-using var driver = new ChromeDriver(opts);
+try
+{
+    using var driver = new ChromeDriver(opts);
+    return Run(driver, cfg);
+}
+catch (WebDriverException ex)
+{
+    Console.Error.WriteLine($"Could not start Chrome: {ex.Message.Split('\n')[0]}");
+    Console.Error.WriteLine("Install Google Chrome/Chromium, or set the browser executable with CHROME_BIN.");
+    return 3;
+}
+catch (InvalidOperationException ex)
+{
+    Console.Error.WriteLine($"Could not start Chrome: {ex.Message.Split('\n')[0]}");
+    Console.Error.WriteLine("Install Google Chrome/Chromium, or set the browser executable with CHROME_BIN.");
+    return 3;
+}
+
+static int Run(IWebDriver driver, Config cfg)
+{
 var js = (IJavaScriptExecutor)driver;
 var finder = new Finder(driver, TimeSpan.FromSeconds(cfg.TimeoutSeconds));
 var results = new List<(string Name, bool Ok, string Detail)>();
@@ -135,3 +158,4 @@ foreach (var (name, ok, detail) in results)
 bool all = results.All(r => r.Ok);
 Console.WriteLine($"\n{(all ? "ALL PASSED" : "FAILURES PRESENT")}");
 return all ? 0 : 1;
+}
