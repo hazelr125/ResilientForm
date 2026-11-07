@@ -3,7 +3,7 @@ namespace ResilientForm;
 public class Config
 {
     public string Url { get; set; } = Environment.GetEnvironmentVariable("FORM_URL")
-                                      ?? "http://app.cloudqa.io/home/AutomationPracticeForm";
+                                      ?? "https://app.cloudqa.io/home/AutomationPracticeForm";
     public string FirstName { get; set; } = "Hazel";
     public string Gender { get; set; } = "Female";
     public string? State { get; set; }          // null = pick the first real option
