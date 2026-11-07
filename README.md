@@ -19,7 +19,7 @@ Works on Windows, macOS and Linux.
 ## 2. Get the code and build
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/hazelr125/ResilientForm.git
 cd <repo-folder>
 dotnet build src
 ```
@@ -49,10 +49,9 @@ dotnet run --project src -- --headless --screenshot out.png
 The URL can be set two ways. `--url` takes priority over the environment variable.
 
 ```bash
-# 1) command-line option
+# command-line option
 dotnet run --project src -- --url "https://example.com/modified-form.html"
 
-# 2) environment variable
 ```
 
 macOS / Linux (bash, zsh):
